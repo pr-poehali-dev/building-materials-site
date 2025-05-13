@@ -1,20 +1,37 @@
+import { fileURLToPath } from "url";
+import { dirname, resolve } from "path";
+import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
-import { type Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
-  content: ["./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
       screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
     extend: {
+      fontFamily: {
+        montserrat: ["Montserrat", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -52,13 +69,13 @@ const config = {
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
-          border: "hsl(var(--sidebar-border))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
           accent: "hsl(var(--sidebar-accent))",
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))"
-        }
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -81,7 +98,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [typography, require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;
